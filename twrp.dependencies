@@ -1,0 +1,9 @@
+[
+  {
+    "repository": "Shas45558/oc_s_mt6768_kernel",
+    "target_path": "kernel/xiaomi/mt6768",
+    "branch": "lineage-23.2",
+    "remote": "github"
+  }
+]
+
