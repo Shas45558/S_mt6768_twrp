@@ -73,7 +73,6 @@ ifeq ($(TARGET_PRODUCT),twrp_merlinx)
 TARGET_KERNEL_CONFIG := merlin_defconfig
 endif
 TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_CLANG_PATH := $(TOP)/prebuilts/clang/host/linux-x86/clang-r450784d
 BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_INCLUDE_RECOVERY_DTBO := true
 BOARD_KERNEL_IMAGE_NAME := Image.gz
