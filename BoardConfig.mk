@@ -66,7 +66,6 @@ BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive.us
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/xiaomi/mt6768
-# TARGET_KERNEL_CLANG_PATH := $(TOP)/prebuilts/clang/host/linux-x86/clang-ext
 ifeq ($(TARGET_PRODUCT),twrp_lancelot)
 TARGET_KERNEL_CONFIG := lancelot_defconfig
 endif
@@ -74,6 +73,7 @@ ifeq ($(TARGET_PRODUCT),twrp_merlinx)
 TARGET_KERNEL_CONFIG := merlin_defconfig
 endif
 TARGET_KERNEL_CLANG_COMPILE := true
+TARGET_KERNEL_CLANG_PATH := $(TOP)/prebuilts/clang/host/linux-x86/clang-r450784d
 BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_INCLUDE_RECOVERY_DTBO := true
 BOARD_KERNEL_IMAGE_NAME := Image.gz
