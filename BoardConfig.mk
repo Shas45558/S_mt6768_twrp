@@ -124,6 +124,9 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 # System-as-root
 BOARD_SUPPRESS_SECURE_ERASE := true
 
+# Properties
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+
 # TWRP Configuration
 TW_BRIGHTNESS_PATH := "/sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 2047
