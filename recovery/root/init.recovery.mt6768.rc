@@ -2,6 +2,9 @@ import /microtrust.rc
 import /ueventd.mtk.rc
 import /init.recovery.usb.rc
 
+on early-init
+    write /proc/sys/kernel/printk "7 7 1 7"
+
 on init
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw:/system/lib64/hw
     setprop crypto.ready 1
