@@ -5,6 +5,9 @@ on init
     setprop sys.usb.ffs.aio_compat 1
     setprop sys.usb.configfs 1
 
+on early-fs
+    start adbd
+
 on fs
     install_keyring
     start servicemanager
