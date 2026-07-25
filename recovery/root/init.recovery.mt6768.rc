@@ -1,7 +1,10 @@
 import /microtrust.rc
+import /ueventd.mtk.rc
+import /init.recovery.usb.rc
 
 on init
-    export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw
+    export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw:/system/lib64/hw
+    setprop crypto.ready 1
     setprop sys.usb.ffs.aio_compat 1
     setprop sys.usb.configfs 1
 
@@ -11,16 +14,14 @@ on fs
     start hwservicemanager
     start vndservicemanager
 
+on early-fs
+    start adbd
+    
 on boot
     class_start core
     class_start early_hal
     class_start hal
     start teei_daemon
-
-on property:hwservicemanager.ready=true
-    start keymaster-4-1
-    start gatekeeper-1-0
-    start keymaster_attestation-1-1
 
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
     interface android.hardware.keymaster@4.0::IKeymasterDevice default
@@ -49,7 +50,18 @@ service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymas
     group root
     disabled
     seclabel u:r:recovery:s0
+
+on property:crypto.ready=1
+    start keymaster-4-1
+    start gatekeeper-1-0
+    start keymaster_attestation-1-1
     
+
+on property:hwservicemanager.ready=true
+    start keymaster-4-1
+    start gatekeeper-1-0
+    start keymaster_attestation-1-1
+
 
 on property:ro.crypto.state=unsupported
     stop gatekeeper-1-0
@@ -62,7 +74,14 @@ on property:ro.crypto.state=unencrypted
     stop keymaster-4-1
     stop teei_daemon
     stop keymaster_attestation-1-1
+    
 on property:twrp.decrypt.done=true
+    stop gatekeeper-1-0
+    stop keymaster-4-1
+    stop teei_daemon
+    stop keymaster_attestation-1-1
+    
+on property:crypto.ready=0
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
