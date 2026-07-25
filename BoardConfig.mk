@@ -158,4 +158,5 @@ TW_DEVICE_VERSION := lancelot/merlinx
 OF_USE_LEGACY_FLASHLIGHT := 1
 OF_FLASHLIGHT_PATH := /sys/class/leds/flashlight/brightness
 OF_FLASHLIGHT_MAX_BRIGHTNESS := 2047
+OF_DEFAULT_INPUT_METHOD := keys
 
