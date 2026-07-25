@@ -128,8 +128,10 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
 # TWRP Configuration
+TW_CUSTOM_FLASHLIGHT := true
+TW_FLASHLIGHT_PATH := /sys/class/leds/flashlight/brightness
+TW_MAX_FLASHLIGHT_BRIGHTNESS := 2047
 TW_BRIGHTNESS_PATH := "/sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness"
-TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_MAX_BRIGHTNESS := 2047
 TW_DEFAULT_BRIGHTNESS := 205
 TW_THEME := portrait_hdpi
@@ -151,4 +153,9 @@ TW_INCLUDE_RESETPROP := true
 TW_LOAD_VENDOR_MODULES := true
 TW_FRAMERATE := 60
 TW_DEVICE_VERSION := lancelot/merlinx
+
+# OrangeFox flashlight
+OF_USE_LEGACY_FLASHLIGHT := 1
+OF_FLASHLIGHT_PATH := /sys/class/leds/flashlight/brightness
+OF_FLASHLIGHT_MAX_BRIGHTNESS := 2047
 
