@@ -168,3 +168,9 @@ TW_USE_FSCRYPT_POLICY := 2
 TW_SKIP_ADDITIONAL_FSTAB := true
 OF_FORCE_USE_RECOVERY_FSTAB := 1
 
+#MIUI 12.xx A11 DECRYPTION
+BOARD_AVB_RECOVERY_ADD_HASH_FOOTER_ARGS += \
+    --prop com.android.build.boot.os_version:$(PLATFORM_VERSION) \
+    --prop com.android.build.boot.security_patch:$(PLATFORM_SECURITY_PATCH)
+
+
