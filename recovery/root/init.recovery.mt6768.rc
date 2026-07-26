@@ -20,11 +20,6 @@ on boot
     class_start hal
     start teei_daemon
 
-on property:hwservicemanager.ready=true
-    start keymaster-4-1
-    start gatekeeper-1-0
-    start keymaster_attestation-1-1
-
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
     interface android.hardware.keymaster@4.0::IKeymasterDevice default
     interface android.hardware.keymaster@4.1::IKeymasterDevice default
@@ -52,21 +47,32 @@ service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymas
     group root
     disabled
     seclabel u:r:recovery:s0
-    
+
+on property:hwservicemanager.ready=true
+    start keymaster-4-1
+    start gatekeeper-1-0
+    start keymaster_attestation-1-1
+
+on property:init.svc.servicemanager=running && property:init.svc.hwservicemanager=running
+    start keystore2
 
 on property:ro.crypto.state=unsupported
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
     stop keymaster_attestation-1-1
+    stop keystore2
 
 on property:ro.crypto.state=unencrypted
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
     stop keymaster_attestation-1-1
+    stop keystore2
+    
 on property:twrp.decrypt.done=true
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
     stop keymaster_attestation-1-1
+    stop keystore2
