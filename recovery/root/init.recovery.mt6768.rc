@@ -16,17 +16,14 @@ on early-fs
     start adbd
 
 on fs
-    install_keyring
-    start servicemanager
-    start hwservicemanager
-    start vndservicemanager
     setprop crypto.ready 1
+    install_keyring
 
-on boot
-    class_start core
-    class_start early_hal
-    class_start hal
-    start teei_daemon
+service keystore /system/bin/keystore2 /data/misc/keystore
+    user root
+    group root drmrpc readproc
+    disabled
+    seclabel u:r:recovery:s0
 
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
     interface android.hardware.keymaster@4.0::IKeymasterDevice default
@@ -55,36 +52,38 @@ service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymas
     group root
     disabled
     seclabel u:r:recovery:s0
+    
+service servicemanager /system/bin/servicemanager
+    user root
+    group root readproc
+    disabled
+    seclabel u:r:recovery:s0
 
 on property:hwservicemanager.ready=true
-    start teei_daemon
-
-on property:init.svc.teei_daemon=running
     start keymaster-4-1
+    start gatekeeper-1-0
     start keymaster_attestation-1-1
-    
-on property:init.svc.keymaster-4-1=running
-    start keystore2
 
-
+on property:init.svc.servicemanager=running && property:init.svc.hwservicemanager=running
+    start keystore
 
 on property:ro.crypto.state=unsupported
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
     stop keymaster_attestation-1-1
-    stop keystore2
+    stop keystore
 
 on property:ro.crypto.state=unencrypted
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
     stop keymaster_attestation-1-1
-    stop keystore2
+    stop keystore
     
 on property:twrp.decrypt.done=true
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
     stop keymaster_attestation-1-1
-    stop keystore2
+    stop keystore
