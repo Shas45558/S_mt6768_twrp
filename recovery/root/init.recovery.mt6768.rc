@@ -19,7 +19,7 @@ on fs
     setprop crypto.ready 1
     install_keyring
 
-service keystore /system/bin/keystore2 /data/misc/keystore
+service keystore2 /system/bin/keystore2 /data/misc/keystore
     user root
     group root drmrpc readproc
     disabled
@@ -32,7 +32,6 @@ service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.bean
     user root
     group root drmrpc
     disabled
-    oneshot
     seclabel u:r:recovery:s0
 
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
@@ -41,7 +40,6 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
-    oneshot
     seclabel u:r:recovery:s0
     
 service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymaster_attestation@1.1-service
@@ -65,25 +63,25 @@ on property:hwservicemanager.ready=true
     start keymaster_attestation-1-1
 
 on property:init.svc.servicemanager=running && property:init.svc.hwservicemanager=running
-    start keystore
+    start keystore2
 
 on property:ro.crypto.state=unsupported
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
     stop keymaster_attestation-1-1
-    stop keystore
+    stop keystore2
 
 on property:ro.crypto.state=unencrypted
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
     stop keymaster_attestation-1-1
-    stop keystore
+    stop keystore2
     
 on property:twrp.decrypt.done=true
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
     stop keymaster_attestation-1-1
-    stop keystore
+    stop keystore2
