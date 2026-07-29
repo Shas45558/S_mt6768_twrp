@@ -71,19 +71,22 @@ on property:ro.crypto.state=unsupported
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
-    stop keymaster_attestation-1-1
+    # stop keymaster_attestation-1-1
     stop keystore2
+    stop soter-1-0
 
 on property:ro.crypto.state=unencrypted
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
-    stop keymaster_attestation-1-1
+    # stop keymaster_attestation-1-1
     stop keystore2
+    stop soter-1-0
     
 on property:twrp.decrypt.done=true
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
-    stop keymaster_attestation-1-1
+    # stop keymaster_attestation-1-1
     stop keystore2
+    stop soter-1-0
