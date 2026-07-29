@@ -16,14 +16,15 @@ on early-fs
     start adbd
 
 on fs
-    setprop crypto.ready 1
     install_keyring
+    start servicemanager
+    start hwservicemanager
+    start vndservicemanager
 
-service keystore2 /system/bin/keystore2 /data/misc/keystore
-    user root
-    group root drmrpc readproc
-    disabled
-    seclabel u:r:recovery:s0
+on boot
+    class_start core
+    class_start early_hal
+    class_start hal
 
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
     interface android.hardware.keymaster@4.0::IKeymasterDevice default
@@ -41,6 +42,14 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     group root
     disabled
     seclabel u:r:recovery:s0
+
+service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
+    class early_hal
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
     
 service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymaster_attestation@1.1-service
     interface vendor.mediatek.hardware.keymaster_attestation@1.0::IKeymasterDevice default
@@ -51,19 +60,12 @@ service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymas
     disabled
     seclabel u:r:recovery:s0
     
-service servicemanager /system/bin/servicemanager
+service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
+    class hal
     user root
-    group root readproc
+    group root
     disabled
     seclabel u:r:recovery:s0
-
-on property:hwservicemanager.ready=true
-    start keymaster-4-1
-    start gatekeeper-1-0
-    start keymaster_attestation-1-1
-
-on property:init.svc.servicemanager=running && property:init.svc.hwservicemanager=running
-    start keystore2
 
 on property:ro.crypto.state=unsupported
     stop gatekeeper-1-0
