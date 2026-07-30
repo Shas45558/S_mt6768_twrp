@@ -25,5 +25,5 @@ export OF_SKIP_MULTIUSER_FOLDERS_BACKUP=1
 export OF_USE_SYSTEM_FINGERPRINT=1
 export OF_DONT_PATCH_ENCRYPTED_DEVICE=1
 
-add_lunch_combo twrp_lancelot-eng
-add_lunch_combo twrp_merlinx-eng
+add_lunch_combo twrp_lancelot-ap2a-eng
+add_lunch_combo twrp_merlinx-ap2a-eng

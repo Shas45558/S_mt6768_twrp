@@ -27,3 +27,9 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="merlin-user 12 SP1A.210812.016 V13.0.2.0.SJOMIXM release-keys"
 
 BUILD_FINGERPRINT := Redmi/merlin/merlin:12/SP1A.210812.016/V13.0.2.0.SJOMIXM:user/release-keys
+
+BUILD_BROKEN_PLUGIN_VALIDATION := \
+    soong-libaosprecovery_defaults \
+    soong-libguitwrp_defaults \
+    soong-libminuitwrp_defaults \
+    soong-vold_defaults
