@@ -20,4 +20,7 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 PRODUCT_COPY_FILES += \
     device/xiaomi/lancelot/recovery/task_profiles.json:recovery/root/system/etc/task_profiles/task_profiles_30.json
+    
+PRODUCT_COPY_FILES += \
+    device/xiaomi/lancelot/recovery/cgroups.json:recovery/root/system/etc/task_profiles/cgroups_30.json
 
