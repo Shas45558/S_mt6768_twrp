@@ -1,8 +1,0 @@
-[
-  {
-    "repository": "Shas45558/android_bootable_recovery_twrp",
-    "target_path": "bootable/recovery",
-    "branch": "android-14.1",
-    "remote": "github"
-  }
-]
