@@ -1,3 +1,126 @@
+import /microtrust.rc
+
 on init
     setprop sys.usb.ffs.aio_compat 1
     setprop sys.usb.configfs 1
+    symlink /dev/block/platform/bootdevice /dev/block/bootdevice
+    export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw
+
+    chmod 0666 /dev/isee_tee0
+    chmod 0666 /dev/teei_client
+    chmod 0777 /tmp/
+    chown system system /dev/isee_tee0
+    chown system system /dev/teei_client
+
+on early-fs
+    start adbd
+    start vold
+on fs
+    install_keyring
+    start servicemanager
+    start hwservicemanager
+    start vndservicemanager
+
+on boot
+    class_start core
+    class_start early_hal
+    class_start hal
+
+
+#
+# Recovery startup sequence
+#
+
+on property:init.svc.teei_daemon=running
+    start bp_kmsetkey
+    
+on property:init.svc.bp_kmsetkey=stopped
+    start keymaster-4-1
+
+on property:init.svc.keymaster-4-1=running
+    start gatekeeper-1-0
+    start keymaster_attestation-1-1
+    start soter-1-0
+
+service fixup /vendor/bin/fix-decrypt-service.sh
+    user root
+    group root
+    oneshot
+    disabled
+    seclabel u:r:recovery:s0
+    
+service vold /system/bin/vold \
+        --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 \
+        --fsck_context=u:r:fsck:s0 --fsck_untrusted_context=u:r:fsck_untrusted:s0
+    class core
+    ioprio be 2
+    writepid /dev/cpuset/foreground/tasks
+    shutdown critical
+    group root reserved_disk
+    disabled
+    seclabel u:r:recovery:s0
+
+service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
+    interface android.hardware.keymaster@4.0::IKeymasterDevice default
+    interface android.hardware.keymaster@4.1::IKeymasterDevice default
+    class early_hal
+    user root
+    group root drmrpc
+    disabled
+    seclabel u:r:recovery:s0
+
+service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+    interface android.hardware.gatekeeper@1.0::IGatekeeper default
+    class hal
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
+    class early_hal
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+    
+service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymaster_attestation@1.1-service
+    interface vendor.mediatek.hardware.keymaster_attestation@1.0::IKeymasterDevice default
+    interface vendor.mediatek.hardware.keymaster_attestation@1.1::IKeymasterDevice default
+    class hal
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+    
+service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
+    class hal
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+on property:ro.crypto.state=unsupported
+    stop gatekeeper-1-0
+    stop keymaster-4-1
+    stop teei_daemon
+    # stop keymaster_attestation-1-1
+    stop keystore2
+    stop soter-1-0
+
+on property:ro.crypto.state=unencrypted
+    stop gatekeeper-1-0
+    stop keymaster-4-1
+    stop teei_daemon
+    # stop keymaster_attestation-1-1
+    stop keystore2
+    stop soter-1-0
+    
+on property:twrp.decrypt.done=true
+    stop gatekeeper-1-0
+    stop keymaster-4-1
+    stop teei_daemon
+    # stop keymaster_attestation-1-1
+    stop keystore2
+    stop soter-1-0
