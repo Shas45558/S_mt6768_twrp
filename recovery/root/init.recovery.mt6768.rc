@@ -1,4 +1,5 @@
 import /microtrust.rc
+import /logd.rc
 
 on init
     setprop sys.usb.ffs.aio_compat 1
@@ -25,7 +26,6 @@ on boot
     class_start core
     class_start early_hal
     class_start hal
-
 
 #
 # Recovery startup sequence
