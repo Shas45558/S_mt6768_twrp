@@ -66,6 +66,7 @@ service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.bean
     user root
     group root drmrpc
     disabled
+    setenv LD_CONFIG_FILE /system/etc/ld.config.vendor.txt
     seclabel u:r:recovery:s0
 
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
