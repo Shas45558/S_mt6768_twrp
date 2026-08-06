@@ -2,7 +2,7 @@
     Input:
         frameworks/av/camera/cameraserver/manifest_android.frameworks.cameraservice.service.xml
 -->
-<manifest version="9.0" type="framework">
+<manifest version="8.0" type="framework">
     <hal format="hidl" max-level="7">
         <name>android.frameworks.cameraservice.service</name>
         <transport>hwbinder</transport>
@@ -10,7 +10,7 @@
     </hal>
     <hal format="aidl">
         <name>android.frameworks.cameraservice.service</name>
-        <version>3</version>
+        <version>2</version>
         <fqname>ICameraService/default</fqname>
     </hal>
 </manifest>

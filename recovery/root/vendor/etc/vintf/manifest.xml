@@ -2,16 +2,21 @@
     Input:
         device/xiaomi/mt6768-common/manifest.xml
 -->
-<manifest version="9.0" type="device" target-level="6">
+<manifest version="8.0" type="device" target-level="5">
     <hal format="hidl">
         <name>android.hardware.audio</name>
         <transport>hwbinder</transport>
-        <fqname>@7.0::IDevicesFactory/default</fqname>
+        <fqname>@6.0::IDevicesFactory/default</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.audio.effect</name>
         <transport>hwbinder</transport>
-        <fqname>@7.0::IEffectsFactory/default</fqname>
+        <fqname>@6.0::IEffectsFactory/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.bluetooth</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IBluetoothHci/default</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.camera.provider</name>
@@ -22,6 +27,12 @@
         <name>android.hardware.gatekeeper</name>
         <transport>hwbinder</transport>
         <fqname>@1.0::IGatekeeper/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.gnss</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.1::IGnss/default</fqname>
+        <fqname>@2.1::IGnss/default</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.graphics.allocator</name>
@@ -44,23 +55,29 @@
         <fqname>@4.1::IKeymasterDevice/default</fqname>
     </hal>
     <hal format="hidl">
+        <name>android.hardware.media.omx</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IOmx/default</fqname>
+        <fqname>@1.0::IOmxStore/default</fqname>
+    </hal>
+    <hal format="hidl">
         <name>android.hardware.radio</name>
         <transport>hwbinder</transport>
         <fqname>@1.2::ISap/slot1</fqname>
         <fqname>@1.2::ISap/slot2</fqname>
-        <fqname>@1.6::IRadio/em1</fqname>
-        <fqname>@1.6::IRadio/em2</fqname>
-        <fqname>@1.6::IRadio/imsAospSlot1</fqname>
-        <fqname>@1.6::IRadio/imsAospSlot2</fqname>
-        <fqname>@1.6::IRadio/se1</fqname>
-        <fqname>@1.6::IRadio/se2</fqname>
-        <fqname>@1.6::IRadio/slot1</fqname>
-        <fqname>@1.6::IRadio/slot2</fqname>
+        <fqname>@1.5::IRadio/em1</fqname>
+        <fqname>@1.5::IRadio/em2</fqname>
+        <fqname>@1.5::IRadio/imsAospSlot1</fqname>
+        <fqname>@1.5::IRadio/imsAospSlot2</fqname>
+        <fqname>@1.5::IRadio/se1</fqname>
+        <fqname>@1.5::IRadio/se2</fqname>
+        <fqname>@1.5::IRadio/slot1</fqname>
+        <fqname>@1.5::IRadio/slot2</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.radio.config</name>
         <transport>hwbinder</transport>
-        <fqname>@1.3::IRadioConfig/default</fqname>
+        <fqname>@1.1::IRadioConfig/default</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.renderscript</name>
@@ -73,14 +90,10 @@
         <fqname>@2.0::ISensors/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.tetheroffload.config</name>
+        <name>android.hardware.thermal</name>
         <transport>hwbinder</transport>
-        <fqname>@1.0::IOffloadConfig/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>android.hardware.tetheroffload.control</name>
-        <transport>hwbinder</transport>
-        <fqname>@1.1::IOffloadControl/default</fqname>
+        <fqname>@1.0::IThermal/default</fqname>
+        <fqname>@2.0::IThermal/default</fqname>
     </hal>
     <hal format="hidl">
         <name>com.fingerprints.extension</name>
@@ -100,9 +113,14 @@
         <fqname>@2.0::IApmService/apm_hidl_service</fqname>
     </hal>
     <hal format="hidl">
+        <name>vendor.mediatek.hardware.atci</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IAtcid/default</fqname>
+    </hal>
+    <hal format="hidl">
         <name>vendor.mediatek.hardware.bluetooth.audio</name>
         <transport>hwbinder</transport>
-        <fqname>@2.2::IBluetoothAudioProvidersFactory/default</fqname>
+        <fqname>@2.1::IBluetoothAudioProvidersFactory/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.mediatek.hardware.camera.isphal</name>
@@ -110,9 +128,9 @@
         <fqname>@1.0::IISPModule/internal/0</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.mediatek.hardware.composer_ext</name>
+        <name>vendor.mediatek.hardware.dfps</name>
         <transport>hwbinder</transport>
-        <fqname>@1.0::IComposerExt/default</fqname>
+        <fqname>@1.0::IFpsPolicyService/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.mediatek.hardware.dmc</name>
@@ -125,9 +143,36 @@
         <fqname>@1.3::IEmd/EmHidlServer</fqname>
     </hal>
     <hal format="hidl">
+        <name>vendor.mediatek.hardware.keyinstall</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IKeyinstall/default</fqname>
+    </hal>
+    <hal format="hidl">
         <name>vendor.mediatek.hardware.keymaster_attestation</name>
         <transport>hwbinder</transport>
         <fqname>@1.1::IKeymasterDevice/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.mediatek.hardware.lbs</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::ILbs/AgpsDebugInterface</fqname>
+        <fqname>@1.0::ILbs/AgpsInterface</fqname>
+        <fqname>@1.0::ILbs/mtk_agps2framework</fqname>
+        <fqname>@1.0::ILbs/mtk_debugService2mnld</fqname>
+        <fqname>@1.0::ILbs/mtk_framework2agps</fqname>
+        <fqname>@1.0::ILbs/mtk_lbs_log_v2s</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_agps</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_bt</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_ipaddr</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_lbs</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_network</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_sensor</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_wlan</fqname>
+        <fqname>@1.0::ILbs/mtk_meta2mnld</fqname>
+        <fqname>@1.0::ILbs/mtk_mnld2debugService</fqname>
+        <fqname>@1.0::ILbs/mtk_mnld2mtklogger</fqname>
+        <fqname>@1.0::ILbs/mtk_mnld2nlputils</fqname>
+        <fqname>@1.0::ILbs/mtk_mtklogger2mnld</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.mediatek.hardware.log</name>
@@ -143,14 +188,14 @@
         <fqname>@1.0::IMDMonitorService/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.mediatek.hardware.mmagent</name>
-        <transport>hwbinder</transport>
-        <fqname>@1.1::IMMAgent/default</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.mediatek.hardware.mms</name>
         <transport>hwbinder</transport>
-        <fqname>@1.6::IMms/default</fqname>
+        <fqname>@1.5::IMms/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.mediatek.hardware.mtkcodecservice</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.1::IMtkCodecService/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.mediatek.hardware.mtkpower</name>
@@ -161,24 +206,22 @@
     <hal format="hidl">
         <name>vendor.mediatek.hardware.mtkradioex</name>
         <transport>hwbinder</transport>
-        <fqname>@3.0::IMtkRadioEx/imsSlot1</fqname>
-        <fqname>@3.0::IMtkRadioEx/imsSlot2</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkAssist1</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkAssist2</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkCap1</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkCap2</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkEm1</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkEm2</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkRcs1</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkRcs2</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkRsu1</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkRsu2</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkSe1</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkSe2</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkSlot1</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkSlot2</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkSmartRatSwitch1</fqname>
-        <fqname>@3.0::IMtkRadioEx/mtkSmartRatSwitch2</fqname>
+        <fqname>@2.0::IMtkRadioEx/imsSlot1</fqname>
+        <fqname>@2.0::IMtkRadioEx/imsSlot2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkAssist1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkAssist2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkCap1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkCap2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkEm1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkEm2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkRcs1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkRcs2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkSe1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkSe2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkSlot1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkSlot2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkSmartRatSwitch1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkSmartRatSwitch2</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.mediatek.hardware.netdagent</name>
@@ -193,7 +236,15 @@
     <hal format="hidl">
         <name>vendor.mediatek.hardware.pq</name>
         <transport>hwbinder</transport>
-        <fqname>@2.13::IPictureQuality/default</fqname>
+        <fqname>@2.6::IPictureQuality/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.mediatek.hardware.radio_op</name>
+        <transport>hwbinder</transport>
+        <fqname>@3.0::IRadioOp/OpImsRILd1</fqname>
+        <fqname>@3.0::IRadioOp/OpImsRILd2</fqname>
+        <fqname>@3.0::IRadioOp/slot1</fqname>
+        <fqname>@3.0::IRadioOp/slot2</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.mediatek.hardware.videotelephony</name>
@@ -201,11 +252,16 @@
         <fqname>@1.0::IVideoTelephony/default</fqname>
     </hal>
     <hal format="hidl">
+        <name>vendor.mediatek.hardware.wifi.supplicant</name>
+        <transport>hwbinder</transport>
+        <fqname>@2.0::ISupplicant/default</fqname>
+    </hal>
+    <hal format="hidl">
         <name>vendor.microtrust.hardware.soter</name>
         <transport>hwbinder</transport>
         <fqname>@1.0::ISoter/default</fqname>
     </hal>
     <sepolicy>
-        <version>202504</version>
+        <version>202404</version>
     </sepolicy>
 </manifest>
