@@ -160,3 +160,6 @@ SELINUX_IGNORE_NEVERALLOWS := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
+
+# Properties
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
