@@ -5,6 +5,7 @@ on init
     setprop sys.usb.configfs 1
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw
+
     chmod 0666 /dev/isee_tee0
     chmod 0666 /dev/teei_client
     chmod 0777 /tmp/
@@ -25,19 +26,13 @@ on boot
     class_start early_hal
     class_start hal
 
-#
-# Recovery startup sequence
-#
-
-on property:hwservicemanager.ready=true
-    start teei_daemon   
-    start bp_kmsetkey
-    start keymaster-4-1
-    start gatekeeper-1-0
-    start keymaster_attestation-1-1
-    start soter-1-0
-
-
+service fixup /vendor/bin/fix-decrypt-service.sh
+    user root
+    group root
+    oneshot
+    disabled
+    seclabel u:r:recovery:s0
+    
 service vold /system/bin/vold \
         --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 \
         --fsck_context=u:r:fsck:s0 --fsck_untrusted_context=u:r:fsck_untrusted:s0
@@ -47,7 +42,6 @@ service vold /system/bin/vold \
     shutdown critical
     group root reserved_disk
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64
     seclabel u:r:recovery:s0
 
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
@@ -57,7 +51,6 @@ service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.bean
     user root
     group root drmrpc
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     seclabel u:r:recovery:s0
 
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
@@ -66,7 +59,6 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64:/system/lib64
     seclabel u:r:recovery:s0
 
 service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
@@ -75,7 +67,6 @@ service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
     group root
     disabled
     oneshot
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw
     seclabel u:r:recovery:s0
     
 service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymaster_attestation@1.1-service
@@ -85,7 +76,6 @@ service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymas
     user root
     group root
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     seclabel u:r:recovery:s0
     
 service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
@@ -93,14 +83,13 @@ service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
     user root
     group root
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     seclabel u:r:recovery:s0
 
 on property:ro.crypto.state=unsupported
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
-    stop keymaster_attestation-1-1
+    # stop keymaster_attestation-1-1
     stop keystore2
     stop soter-1-0
 
@@ -108,7 +97,7 @@ on property:ro.crypto.state=unencrypted
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
-    stop keymaster_attestation-1-1
+    # stop keymaster_attestation-1-1
     stop keystore2
     stop soter-1-0
     
@@ -116,6 +105,6 @@ on property:twrp.decrypt.done=true
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
-    stop keymaster_attestation-1-1
+    # stop keymaster_attestation-1-1
     stop keystore2
     stop soter-1-0
