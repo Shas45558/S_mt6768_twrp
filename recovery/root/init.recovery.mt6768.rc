@@ -13,47 +13,35 @@ on init
 
 on early-fs
     start adbd
-    start vold
 on fs
     install_keyring
     start servicemanager
     start hwservicemanager
     start vndservicemanager
 
-on boot
-    class_start core
-    class_start early_hal
-    class_start hal
-
 #
 # Recovery startup sequence
 #
 
-on property:hwservicemanager.ready=true
-    start teei_daemon   
-    start bp_kmsetkey
-    start keymaster-4-1
-    start gatekeeper-1-0
-    start keymaster_attestation-1-1
+on property:init.svc.teei_daemon=running
     start soter-1-0
 
+on property:init.svc.soter-1-0=running
+    start bp_kmsetkey
+    
+on property:init.svc.bp_kmsetkey=stopped
+    start keymaster-4-1
 
-service vold /system/bin/vold \
-        --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 \
-        --fsck_context=u:r:fsck:s0 --fsck_untrusted_context=u:r:fsck_untrusted:s0
-    class core
-    ioprio be 2
-    writepid /dev/cpuset/foreground/tasks
-    shutdown critical
-    group root reserved_disk
-    disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64
-    seclabel u:r:recovery:s0
+on property:init.svc.keymaster-4-1=running
+    start gatekeeper-1-0
+
+on property:init.svc.gatekeeper-1-0=running
+    start keymaster_attestation-1-1
 
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
     interface android.hardware.keymaster@4.0::IKeymasterDevice default
     interface android.hardware.keymaster@4.1::IKeymasterDevice default
-    class early_hal
+#    class early_hal
     user root
     group root drmrpc
     disabled
@@ -62,7 +50,7 @@ service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.bean
 
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     interface android.hardware.gatekeeper@1.0::IGatekeeper default
-    class hal
+#    class hal
     user root
     group root
     disabled
@@ -70,7 +58,6 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     seclabel u:r:recovery:s0
 
 service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
-    class early_hal
     user root
     group root
     disabled
@@ -81,7 +68,7 @@ service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
 service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymaster_attestation@1.1-service
     interface vendor.mediatek.hardware.keymaster_attestation@1.0::IKeymasterDevice default
     interface vendor.mediatek.hardware.keymaster_attestation@1.1::IKeymasterDevice default
-    class hal
+#    class hal
     user root
     group root
     disabled
@@ -89,7 +76,7 @@ service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymas
     seclabel u:r:recovery:s0
     
 service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
-    class hal
+#    class hal
     user root
     group root
     disabled

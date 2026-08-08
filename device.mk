@@ -20,5 +20,6 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 PRODUCT_PACKAGES += \
     logd \
-    logcat
+    logcat \
+    vold
 
