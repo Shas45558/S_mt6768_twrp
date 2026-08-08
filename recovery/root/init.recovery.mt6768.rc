@@ -13,6 +13,7 @@ on init
 
 on early-fs
     start adbd
+    start vold
 on fs
     install_keyring
     start servicemanager
@@ -37,6 +38,19 @@ on property:init.svc.keymaster-4-1=running
 
 on property:init.svc.gatekeeper-1-0=running
     start keymaster_attestation-1-1
+    
+service vold /system/bin/vold \
+    --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 \
+    --fsck_context=u:r:fsck:s0 --fsck_untrusted_context=u:r:fsck_untrusted:s0
+    class core
+    ioprio be 2
+    task_profiles ProcessCapacityHigh
+    shutdown critical
+    group root reserved_disk
+    user root
+    reboot_on_failure reboot,vold-failed
+    seclabel u:r:recovery:s0
+    
 
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
     interface android.hardware.keymaster@4.0::IKeymasterDevice default
