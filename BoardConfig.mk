@@ -149,6 +149,33 @@ TW_LOAD_VENDOR_MODULES := true
 TW_FRAMERATE := 60
 TW_DEVICE_VERSION := lancelot/merlinx
 
+# OrangeFox 
+# Inherit the proprietary files
+OF_ENABLE_ALL_PARTITION_TOOLS := 1
+OF_PATCH_AVB20 := 1
+OF_DONT_PATCH_ENCRYPTED_DEVICE := 1
+OF_ENABLE_LPTOOLS := 1
+OF_FL_PATH1 := /sys/devices/platform/flashlights_led191/leds/flashlight
+# FRP
+OF_ENABLE_FRP_ADDON := 1
+# maximum permissible splash image size (in kilobytes); do *NOT* increase!
+OF_SPLASH_MAX_SIZE := 130
+ALLOW_MISSING_DEPENDENCIES := true
+LC_ALL := "C"
+TW_DEFAULT_LANGUAGE := "en"
+FOX_ENABLE_APP_MANAGER := 1
+FOX_USE_BASH_SHELL := 1
+FOX_USE_TAR_BINARY := 1
+FOX_USE_XZ_UTILS := 1
+FOX_USE_LZ4_BINARY := 1
+FOX_USE_ZSTD_BINARY := 1
+FOX_USE_BUSYBOX_BINARY := 1
+FOX_USE_DATE_BINARY := 1
+OF_ENABLE_ALL_PARTITION_TOOLS := 1
+OF_USE_LEGACY_BATTERY_SERVICES := 1
+OF_UNBIND_SDCARD_F2FS := 1
+OF_USE_DMCTL := 1
+
 
 # System as root
 BOARD_SUPPRESS_SECURE_ERASE := true
@@ -163,9 +190,3 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
-
-# Crypto
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
-TW_INCLUDE_FBE_METADATA_DECRYPT := true
-TW_USE_FSCRYPT_POLICY := 2

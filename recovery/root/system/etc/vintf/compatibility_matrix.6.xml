@@ -1,11 +1,11 @@
 <!--
     Input:
-        hardware/interfaces/compatibility_matrices/compatibility_matrix.6.xml
-        out/soong/.intermediates/kernel/configs/s/android-4.19/kernel_config_s_4.19/matrix_kernel_config_s_4.19.xml
-        out/soong/.intermediates/kernel/configs/s/android-5.4/kernel_config_s_5.4/matrix_kernel_config_s_5.4.xml
-        out/soong/.intermediates/kernel/configs/s/android-5.10/kernel_config_s_5.10/matrix_kernel_config_s_5.10.xml
+        compatibility_matrix.6.xml
+        matrix_kernel_config_s_4.19.xml
+        matrix_kernel_config_s_5.4.xml
+        matrix_kernel_config_s_5.10.xml
 -->
-<compatibility-matrix version="8.0" type="framework" level="6">
+<compatibility-matrix version="4.0" type="framework" level="6">
     <hal format="hidl" optional="true">
         <name>android.hardware.atrace</name>
         <version>1.0</version>
@@ -14,7 +14,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl" optional="true">
+    <hal format="hidl" optional="false">
         <name>android.hardware.audio</name>
         <version>6.0</version>
         <version>7.0</version>
@@ -23,7 +23,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl" optional="true">
+    <hal format="hidl" optional="false">
         <name>android.hardware.audio.effect</name>
         <version>6.0</version>
         <version>7.0</version>
@@ -220,7 +220,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl" optional="true">
+    <hal format="hidl" optional="false">
         <name>android.hardware.gatekeeper</name>
         <version>1.0</version>
         <interface>
@@ -243,7 +243,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl" optional="true">
+    <hal format="hidl" optional="false">
         <name>android.hardware.graphics.allocator</name>
         <version>2.0</version>
         <version>3.0</version>
@@ -253,7 +253,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl" optional="true">
+    <hal format="hidl" optional="false">
         <name>android.hardware.graphics.composer</name>
         <version>2.1-4</version>
         <interface>
@@ -261,7 +261,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl" optional="true">
+    <hal format="hidl" optional="false">
         <name>android.hardware.graphics.mapper</name>
         <version>2.1</version>
         <version>3.0</version>
@@ -271,7 +271,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl" optional="true">
+    <hal format="hidl" optional="false">
         <name>android.hardware.health</name>
         <version>2.1</version>
         <interface>
@@ -339,18 +339,8 @@
         <version>1.0-2</version>
         <interface>
             <name>IComponentStore</name>
-            <instance>software</instance>
             <regex-instance>default[0-9]*</regex-instance>
             <regex-instance>vendor[0-9]*_software</regex-instance>
-        </interface>
-    </hal>
-    <hal format="hidl" optional="true">
-        <name>android.hardware.media.c2</name>
-        <version>1.0</version>
-        <interface>
-            <name>IConfigurable</name>
-            <instance>default</instance>
-            <instance>software</instance>
         </interface>
     </hal>
     <hal format="hidl" optional="true">
@@ -395,6 +385,14 @@
             <instance>default</instance>
         </interface>
     </hal>
+    <hal format="hidl" optional="true">
+        <name>android.hardware.nfc</name>
+        <version>1.0</version>
+        <interface>
+            <name>INfc</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
     <hal format="aidl" optional="true">
         <name>android.hardware.oemlock</name>
         <interface>
@@ -410,7 +408,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="aidl" optional="true">
+    <hal format="aidl" optional="false">
         <name>android.hardware.power</name>
         <version>1-2</version>
         <interface>
@@ -441,7 +439,6 @@
         <interface>
             <name>ISap</name>
             <instance>slot1</instance>
-            <instance>slot2</instance>
         </interface>
     </hal>
     <hal format="hidl" optional="true">
@@ -650,6 +647,54 @@
             <instance>default</instance>
         </interface>
     </hal>
+    <hal format="hidl" optional="true">
+        <name>com.fingerprints.extension</name>
+        <version>1.0</version>
+        <interface>
+            <name>IFingerprintEngineering</name>
+            <instance>default</instance>
+        </interface>
+        <interface>
+            <name>IFingerprintNavigation</name>
+            <instance>default</instance>
+        </interface>
+        <interface>
+            <name>IFingerprintSensorTest</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.goodix.hardware.biometrics.fingerprint</name>
+        <version>2.1</version>
+        <interface>
+            <name>IGoodixFingerprintDaemon</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.nxp.hardware.nfc</name>
+        <version>1.0</version>
+        <interface>
+            <name>INqNfc</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.nxp.hardware.nfc</name>
+        <version>2.0</version>
+        <interface>
+            <name>INqNfc</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.nxp.nxpnfclegacy</name>
+        <version>1.0</version>
+        <interface>
+            <name>INxpNfcLegacy</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
     <kernel version="4.19.191" level="6">
         <config>
             <key>CONFIG_ADVISE_SYSCALLS</key>
@@ -778,6 +823,10 @@
         <config>
             <key>CONFIG_CRYPTO_HMAC</key>
             <value type="tristate">y</value>
+        </config>
+        <config>
+            <key>CONFIG_CRYPTO_MD4</key>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_CRYPTO_MD5</key>
@@ -1683,6 +1732,10 @@
             <key>CONFIG_XFRM_USER</key>
             <value type="tristate">y</value>
         </config>
+        <config>
+            <key>CONFIG_DEBUG_FS</key>
+            <value type="tristate">n</value>
+        </config>
     </kernel>
     <kernel version="4.19.191" level="6">
         <conditions>
@@ -1948,6 +2001,10 @@
         <config>
             <key>CONFIG_CRYPTO_HMAC</key>
             <value type="tristate">y</value>
+        </config>
+        <config>
+            <key>CONFIG_CRYPTO_MD4</key>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_CRYPTO_MD5</key>
@@ -3146,6 +3203,10 @@
         <config>
             <key>CONFIG_CRYPTO_HMAC</key>
             <value type="tristate">y</value>
+        </config>
+        <config>
+            <key>CONFIG_CRYPTO_MD4</key>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_CRYPTO_MD5</key>
