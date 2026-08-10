@@ -5,7 +5,7 @@
         matrix_kernel_config_p_4.9.xml
         matrix_kernel_config_p_4.14.xml
 -->
-<compatibility-matrix version="5.0" type="framework" level="3">
+<compatibility-matrix version="4.0" type="framework" level="3">
     <hal format="hidl" optional="false">
         <name>android.hardware.audio</name>
         <version>4.0</version>
@@ -190,7 +190,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl" optional="true">
+    <hal format="hidl" optional="false">
         <name>android.hardware.graphics.allocator</name>
         <version>2.0</version>
         <interface>
@@ -214,7 +214,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl" optional="true">
+    <hal format="hidl" optional="false">
         <name>android.hardware.health</name>
         <version>2.0</version>
         <interface>
@@ -478,7 +478,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <kernel version="4.4.302" level="3">
+    <kernel version="4.4.107" level="3">
         <config>
             <key>CONFIG_ADVISE_SYSCALLS</key>
             <value type="tristate">y</value>
@@ -516,15 +516,7 @@
             <value type="tristate">y</value>
         </config>
         <config>
-            <key>CONFIG_BPF_SYSCALL</key>
-            <value type="tristate">y</value>
-        </config>
-        <config>
             <key>CONFIG_CGROUPS</key>
-            <value type="tristate">y</value>
-        </config>
-        <config>
-            <key>CONFIG_CGROUP_BPF</key>
             <value type="tristate">y</value>
         </config>
         <config>
@@ -820,10 +812,6 @@
             <value type="tristate">y</value>
         </config>
         <config>
-            <key>CONFIG_NETFILTER_XT_MATCH_BPF</key>
-            <value type="tristate">y</value>
-        </config>
-        <config>
             <key>CONFIG_NETFILTER_XT_MATCH_COMMENT</key>
             <value type="tristate">y</value>
         </config>
@@ -868,10 +856,6 @@
             <value type="tristate">y</value>
         </config>
         <config>
-            <key>CONFIG_NETFILTER_XT_MATCH_OWNER</key>
-            <value type="tristate">y</value>
-        </config>
-        <config>
             <key>CONFIG_NETFILTER_XT_MATCH_PKTTYPE</key>
             <value type="tristate">y</value>
         </config>
@@ -881,7 +865,7 @@
         </config>
         <config>
             <key>CONFIG_NETFILTER_XT_MATCH_QTAGUID</key>
-            <value type="tristate">n</value>
+            <value type="tristate">y</value>
         </config>
         <config>
             <key>CONFIG_NETFILTER_XT_MATCH_QUOTA</key>
@@ -961,10 +945,6 @@
         </config>
         <config>
             <key>CONFIG_NET_CLS_ACT</key>
-            <value type="tristate">y</value>
-        </config>
-        <config>
-            <key>CONFIG_NET_CLS_BPF</key>
             <value type="tristate">y</value>
         </config>
         <config>
@@ -1236,7 +1216,7 @@
             <value type="tristate">y</value>
         </config>
     </kernel>
-    <kernel version="4.4.302" level="3">
+    <kernel version="4.4.107" level="3">
         <conditions>
             <config>
                 <key>CONFIG_ARM</key>
@@ -1248,7 +1228,7 @@
             <value type="tristate">n</value>
         </config>
     </kernel>
-    <kernel version="4.4.302" level="3">
+    <kernel version="4.4.107" level="3">
         <conditions>
             <config>
                 <key>CONFIG_ARM64</key>

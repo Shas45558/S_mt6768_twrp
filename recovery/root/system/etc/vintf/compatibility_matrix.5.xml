@@ -5,7 +5,7 @@
         matrix_kernel_config_r_4.19.xml
         matrix_kernel_config_r_5.4.xml
 -->
-<compatibility-matrix version="5.0" type="framework" level="5">
+<compatibility-matrix version="4.0" type="framework" level="5">
     <hal format="hidl" optional="true">
         <name>android.hardware.atrace</name>
         <version>1.0</version>
@@ -215,7 +215,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl" optional="true">
+    <hal format="hidl" optional="false">
         <name>android.hardware.graphics.allocator</name>
         <version>2.0</version>
         <version>3.0</version>
@@ -243,7 +243,7 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="hidl" optional="true">
+    <hal format="hidl" optional="false">
         <name>android.hardware.health</name>
         <version>2.1</version>
         <interface>
@@ -353,6 +353,14 @@
         </interface>
     </hal>
     <hal format="hidl" optional="true">
+        <name>android.hardware.nfc</name>
+        <version>1.0</version>
+        <interface>
+            <name>INfc</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
         <name>android.hardware.oemlock</name>
         <version>1.0</version>
         <interface>
@@ -396,7 +404,7 @@
     </hal>
     <hal format="hidl" optional="true">
         <name>android.hardware.radio.config</name>
-        <version>1.0-1</version>
+        <version>1.1</version>
         <interface>
             <name>IRadioConfig</name>
             <instance>default</instance>
@@ -554,6 +562,46 @@
             <instance>default</instance>
         </interface>
     </hal>
+    <hal format="hidl" optional="true">
+        <name>com.fingerprints.extension</name>
+        <version>1.0</version>
+        <interface>
+            <name>IFingerprintEngineering</name>
+            <instance>default</instance>
+        </interface>
+        <interface>
+            <name>IFingerprintNavigation</name>
+            <instance>default</instance>
+        </interface>
+        <interface>
+            <name>IFingerprintSensorTest</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.goodix.hardware.biometrics.fingerprint</name>
+        <version>2.1</version>
+        <interface>
+            <name>IGoodixFingerprintDaemon</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.nxp.hardware.nfc</name>
+        <version>1.0</version>
+        <interface>
+            <name>INqNfc</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.nxp.hardware.nfc</name>
+        <version>2.0</version>
+        <interface>
+            <name>INqNfc</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
     <kernel version="4.14.180" level="5">
         <config>
             <key>CONFIG_ADVISE_SYSCALLS</key>
@@ -662,6 +710,10 @@
         <config>
             <key>CONFIG_CRYPTO_HMAC</key>
             <value type="tristate">y</value>
+        </config>
+        <config>
+            <key>CONFIG_CRYPTO_MD4</key>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_CRYPTO_MD5</key>
@@ -985,7 +1037,7 @@
         </config>
         <config>
             <key>CONFIG_MODULE_FORCE_UNLOAD</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_MODULE_UNLOAD</key>
@@ -1213,11 +1265,11 @@
         </config>
         <config>
             <key>CONFIG_NFSD</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_NFS_FS</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_NF_CONNTRACK</key>
@@ -1449,7 +1501,7 @@
         </config>
         <config>
             <key>CONFIG_SYSVIPC</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_TASKSTATS</key>
@@ -1537,7 +1589,7 @@
         </config>
         <config>
             <key>CONFIG_VHOST</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_XFRM_INTERFACE</key>
@@ -1804,6 +1856,10 @@
         <config>
             <key>CONFIG_CRYPTO_HMAC</key>
             <value type="tristate">y</value>
+        </config>
+        <config>
+            <key>CONFIG_CRYPTO_MD4</key>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_CRYPTO_MD5</key>
@@ -2131,7 +2187,7 @@
         </config>
         <config>
             <key>CONFIG_MODULE_FORCE_UNLOAD</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_MODULE_UNLOAD</key>
@@ -2355,11 +2411,11 @@
         </config>
         <config>
             <key>CONFIG_NFSD</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_NFS_FS</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_NF_CONNTRACK</key>
@@ -2591,7 +2647,7 @@
         </config>
         <config>
             <key>CONFIG_SYSVIPC</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_TASKSTATS</key>
@@ -2679,7 +2735,7 @@
         </config>
         <config>
             <key>CONFIG_VHOST</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_XFRM_INTERFACE</key>
@@ -2904,6 +2960,10 @@
             <value type="tristate">y</value>
         </config>
         <config>
+            <key>CONFIG_CFI_CLANG</key>
+            <value type="tristate">y</value>
+        </config>
+        <config>
             <key>CONFIG_CGROUPS</key>
             <value type="tristate">y</value>
         </config>
@@ -2946,6 +3006,10 @@
         <config>
             <key>CONFIG_CRYPTO_HMAC</key>
             <value type="tristate">y</value>
+        </config>
+        <config>
+            <key>CONFIG_CRYPTO_MD4</key>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_CRYPTO_MD5</key>
@@ -3236,6 +3300,10 @@
             <value type="tristate">y</value>
         </config>
         <config>
+            <key>CONFIG_LTO_CLANG</key>
+            <value type="tristate">y</value>
+        </config>
+        <config>
             <key>CONFIG_MAGIC_SYSRQ</key>
             <value type="tristate">y</value>
         </config>
@@ -3257,7 +3325,7 @@
         </config>
         <config>
             <key>CONFIG_MODULE_FORCE_UNLOAD</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_MODULE_UNLOAD</key>
@@ -3346,10 +3414,6 @@
         <config>
             <key>CONFIG_NETFILTER_XT_MATCH_POLICY</key>
             <value type="tristate">y</value>
-        </config>
-        <config>
-            <key>CONFIG_NETFILTER_XT_MATCH_QTAGUID</key>
-            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_NETFILTER_XT_MATCH_QUOTA</key>
@@ -3485,11 +3549,11 @@
         </config>
         <config>
             <key>CONFIG_NFSD</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_NFS_FS</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_NF_CONNTRACK</key>
@@ -3725,7 +3789,7 @@
         </config>
         <config>
             <key>CONFIG_SYSVIPC</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_TASKSTATS</key>
@@ -3813,7 +3877,7 @@
         </config>
         <config>
             <key>CONFIG_VHOST</key>
-            <value type="tristate">y</value>
+            <value type="tristate">n</value>
         </config>
         <config>
             <key>CONFIG_XFRM_INTERFACE</key>
@@ -3880,10 +3944,6 @@
             <value type="tristate">y</value>
         </config>
         <config>
-            <key>CONFIG_CFI_CLANG</key>
-            <value type="tristate">y</value>
-        </config>
-        <config>
             <key>CONFIG_CP15_BARRIER_EMULATION</key>
             <value type="tristate">y</value>
         </config>
@@ -3925,18 +3985,6 @@
         </config>
         <config>
             <key>CONFIG_BPF_JIT_ALWAYS_ON</key>
-            <value type="tristate">y</value>
-        </config>
-    </kernel>
-    <kernel version="5.4.61" level="5">
-        <conditions>
-            <config>
-                <key>CONFIG_X86_64</key>
-                <value type="tristate">y</value>
-            </config>
-        </conditions>
-        <config>
-            <key>CONFIG_CFI_CLANG</key>
             <value type="tristate">y</value>
         </config>
     </kernel>
