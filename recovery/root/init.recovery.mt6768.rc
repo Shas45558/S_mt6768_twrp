@@ -41,7 +41,7 @@ on property:init.svc.gatekeeper-1-0=running
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
     interface android.hardware.keymaster@4.0::IKeymasterDevice default
     interface android.hardware.keymaster@4.1::IKeymasterDevice default
-#    class early_hal
+    class early_hal
     user root
     group root drmrpc
     disabled
@@ -50,7 +50,7 @@ service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.bean
 
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     interface android.hardware.gatekeeper@1.0::IGatekeeper default
-#    class hal
+    class hal
     user root
     group root
     disabled
@@ -68,7 +68,7 @@ service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
 service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymaster_attestation@1.1-service
     interface vendor.mediatek.hardware.keymaster_attestation@1.0::IKeymasterDevice default
     interface vendor.mediatek.hardware.keymaster_attestation@1.1::IKeymasterDevice default
-#    class hal
+    class hal
     user root
     group root
     disabled
@@ -76,7 +76,7 @@ service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymas
     seclabel u:r:recovery:s0
     
 service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
-#    class hal
+    class hal
     user root
     group root
     disabled

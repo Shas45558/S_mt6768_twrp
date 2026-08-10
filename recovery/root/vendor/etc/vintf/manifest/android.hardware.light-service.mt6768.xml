@@ -1,8 +1,4 @@
-<!--
-    Input:
-        hardware/xiaomi/aidl/light/android.hardware.light-service.xiaomi.xml
--->
-<manifest version="8.0" type="device">
+<manifest version="1.0" type="device">
     <hal format="aidl">
         <name>android.hardware.light</name>
         <version>2</version>
