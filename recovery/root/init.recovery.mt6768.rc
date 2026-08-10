@@ -45,7 +45,6 @@ service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.bean
     user root
     group root drmrpc
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     seclabel u:r:recovery:s0
 
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
@@ -54,7 +53,6 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64:/system/lib64
     seclabel u:r:recovery:s0
 
 service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
@@ -62,7 +60,6 @@ service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
     group root
     disabled
     oneshot
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw
     seclabel u:r:recovery:s0
     
 service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymaster_attestation@1.1-service
@@ -72,7 +69,6 @@ service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymas
     user root
     group root
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     seclabel u:r:recovery:s0
     
 service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
@@ -80,7 +76,6 @@ service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
     user root
     group root
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     seclabel u:r:recovery:s0
 
 on property:ro.crypto.state=unsupported
