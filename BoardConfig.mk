@@ -63,19 +63,17 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive.usbconfigfs=true
 
 # Kernel
-TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_SOURCE := kernel/xiaomi/mt6768
 ifeq ($(TARGET_PRODUCT),twrp_lancelot)
-TARGET_KERNEL_CONFIG := lancelot_defconfig
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/lancelot/Image.gz
+BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/lancelot/dtb
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/lancelot/dtbo.img
 endif
+
 ifeq ($(TARGET_PRODUCT),twrp_merlinx)
-TARGET_KERNEL_CONFIG := merlin_defconfig
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/merlinx/Image.gz
+BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/merlinx/dtb
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/merlinx/dtbo.img
 endif
-TARGET_KERNEL_CLANG_COMPILE := true
-BOARD_KERNEL_SEPARATED_DTBO := true
-BOARD_INCLUDE_RECOVERY_DTBO := true
-BOARD_KERNEL_IMAGE_NAME := Image.gz
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)

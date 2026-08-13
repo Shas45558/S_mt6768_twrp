@@ -15,7 +15,7 @@ on init
 on early-fs
     start adbd
     mount ext4 /dev/block/platform/bootdevice/by-name/md_udc /metadata
-#    start vold
+    start vold
 
 on fs
     install_keyring
@@ -53,7 +53,7 @@ service fixup /vendor/bin/fix-decrypt-service.sh
     disabled
     seclabel u:r:recovery:s0
     
-service vold /system/bin/vold \
+service vold /vendor/bin/vold \
         --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 \
         --fsck_context=u:r:fsck:s0 --fsck_untrusted_context=u:r:fsck_untrusted:s0
     class core
@@ -61,6 +61,7 @@ service vold /system/bin/vold \
     writepid /dev/cpuset/foreground/tasks
     shutdown critical
     group root reserved_disk
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
 
@@ -70,6 +71,7 @@ service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.bean
     class early_hal
     user root
     group root drmrpc
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
 
@@ -78,6 +80,7 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     class hal
     user root
     group root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
 
@@ -86,6 +89,7 @@ service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
     user root
     group root
     disabled
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     oneshot
     seclabel u:r:recovery:s0
     
@@ -95,6 +99,7 @@ service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymas
     class hal
     user root
     group root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
     
@@ -102,6 +107,7 @@ service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
     class hal
     user root
     group root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
 
