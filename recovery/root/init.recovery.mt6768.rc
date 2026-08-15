@@ -14,7 +14,7 @@ on init
 
 on early-fs
     start adbd
-    mount ext4 /dev/block/platform/bootdevice/by-name/md_udc /metadata
+#    mount ext4 /dev/block/platform/bootdevice/by-name/md_udc /metadata
     
 on fs
     install_keyring
