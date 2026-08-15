@@ -70,7 +70,7 @@ service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.bean
     class early_hal
     user root
     group root drmrpc
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
+#    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
 
@@ -79,7 +79,7 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     class hal
     user root
     group root
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
+#    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
 
@@ -88,7 +88,7 @@ service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
     user root
     group root
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
+#    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     oneshot
     seclabel u:r:recovery:s0
     
@@ -98,7 +98,7 @@ service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymas
     class hal
     user root
     group root
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
+#    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
     
@@ -106,7 +106,7 @@ service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
     class hal
     user root
     group root
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
+#    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
 
