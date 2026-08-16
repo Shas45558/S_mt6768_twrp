@@ -46,8 +46,8 @@ on property:init.svc.keymaster-4-1=running
 on property:init.svc.keymaster_attestation-1-1=running
     start gatekeeper-1-0
 
-# on property:init.svc.gatekeeper-1-0=running
-#     start vold
+on property:init.svc.gatekeeper-1-0=running
+    start vold
     
 service fixup /vendor/bin/fix-decrypt-service.sh
     user root
@@ -56,11 +56,13 @@ service fixup /vendor/bin/fix-decrypt-service.sh
     disabled
     seclabel u:r:recovery:s0
     
-service vold /vendor/bin/vold
+service vold /system/bin/vold \
+        --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 \
+        --fsck_context=u:r:fsck:s0 --fsck_untrusted_context=u:r:fsck_untrusted:s0
     class core
+    ioprio be 2
     shutdown critical
     group root reserved_disk
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
 
