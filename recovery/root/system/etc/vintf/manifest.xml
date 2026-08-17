@@ -1,9 +1,10 @@
 <!--
     Input:
         manifest.xml
+        system/libhidl/vintfdata/manifest.xml
 -->
 <manifest version="4.0" type="framework">
-    <hal format="hidl">
+    <hal format="hidl" max-level="6">
         <name>android.frameworks.displayservice</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -63,7 +64,7 @@
         </interface>
         <fqname>@1.0::ITokenManager/default</fqname>
     </hal>
-    <hal format="hidl">
+        <hal format="hidl">
         <name>android.system.net.netd</name>
         <transport>hwbinder</transport>
         <version>1.1</version>
@@ -83,7 +84,7 @@
         </interface>
         <fqname>@1.0::IKeystore/default</fqname>
     </hal>
-    <hal format="native">
+        <hal format="native">
         <name>netutils-wrapper</name>
         <version>1.0</version>
     </hal>
@@ -92,5 +93,7 @@
         <version>29</version>
         <version>30</version>
         <version>31</version>
+        <version>32</version>
+        <version>33</version>
     </system-sdk>
 </manifest>
