@@ -1,0 +1,11 @@
+<!--
+    Input:
+        device/xiaomi/mt6768-common/fingerprint/android.hardware.biometrics.fingerprint@2.3-service.mt6768.xml
+-->
+<manifest version="8.0" type="device">
+    <hal format="hidl">
+        <name>android.hardware.biometrics.fingerprint</name>
+        <transport>hwbinder</transport>
+        <fqname>@2.3::IBiometricsFingerprint/default</fqname>
+    </hal>
+</manifest>

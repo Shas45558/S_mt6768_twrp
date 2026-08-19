@@ -15,31 +15,12 @@ PRODUCT_PACKAGES += \
     
 PRODUCT_SHIPPING_API_LEVEL := 29
 PRODUCT_FULL_TREBLE_OVERRIDE := true
-BOARD_VNDK_VERSION := current
+BOARD_VNDK_VERSION := 36
+PRODUCT_TARGET_VNDK_VERSION := 36
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # Health HAL
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl \
     android.hardware.health@2.1-service
-
-# Soong
-PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)
-
-
-# VNDK
-PRODUCT_TARGET_VNDK_VERSION := 32
-
-# Additional Libraries
-TARGET_RECOVERY_DEVICE_MODULES += \
-    libkeymaster4 \
-    libkeymaster41 \
-    libpuresoftkeymasterdevice
-
-RECOVERY_LIBRARY_SOURCE_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster41.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so
-    
 
