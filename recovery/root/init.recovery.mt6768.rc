@@ -1,5 +1,5 @@
 import /microtrust.rc
-
+    
 on init
     setprop sys.usb.ffs.aio_compat 1
     setprop sys.usb.configfs 1
@@ -12,89 +12,99 @@ on init
     chown system system /dev/isee_tee0
     chown system system /dev/teei_client
 
-on early-fs
-    start adbd
 on fs
+    setprop crypto.ready 1
     install_keyring
-    start servicemanager
-    start hwservicemanager
-    start vndservicemanager
 
-on boot
-    class_start core
-    class_start early_hal
-    class_start hal
-
-on property:init.svc.teei_daemon=running
-    start bp_kmsetkey
-    
-on property:init.svc.bp_kmsetkey=stopped
-    start keymaster-4-1
-
-on property:init.svc.keymaster-4-1=running
-    start gatekeeper-1-0
-
-service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
-    interface android.hardware.keymaster@4.0::IKeymasterDevice default
-    interface android.hardware.keymaster@4.1::IKeymasterDevice default
-    class early_hal
+service keystore2 /system/bin/keystore2 /data/misc/keystore
     user root
-    group root drmrpc
+    group root drmrpc readproc
     disabled
     seclabel u:r:recovery:s0
-
+ 
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     interface android.hardware.gatekeeper@1.0::IGatekeeper default
-    class hal
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
 
-service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
-    class early_hal
+service servicemanager /system/bin/servicemanager
+    user root
+    group root readproc
+    disabled
+    seclabel u:r:recovery:s0
+
+service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
+    class hal
+    user system
+    group system
+    seclabel u:r:recovery:s0
+
+service beanpod_check_keybox_service /vendor/bin/bp_kmsetkey_ca.sh
     user root
     group root
-    disabled
     oneshot
     seclabel u:r:recovery:s0
     
-service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymaster_attestation@1.1-service
-    interface vendor.mediatek.hardware.keymaster_attestation@1.0::IKeymasterDevice default
-    interface vendor.mediatek.hardware.keymaster_attestation@1.1::IKeymasterDevice default
-    class hal
+service fixup /vendor/bin/fix-decrypt-service.sh
     user root
     group root
-    disabled
-    seclabel u:r:recovery:s0
-    
-service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
-    class hal
-    user root
-    group root
-    disabled
+    oneshot
     seclabel u:r:recovery:s0
 
+service keymaster-4-0 /vendor/bin/hw/android.hardware.keymaster@4.0-service.beanpod
+    interface android.hardware.keymaster@4.0::IKeymasterDevice default
+    user root
+    group root drmrpc
+    disabled
+    oneshot
+    setenv LD_PRELOAD /vendor/lib64/libkeymaster_messages.so:/vendor/lib64/libpuresoftkeymasterdevice.so:/vendor/lib64/libkeymaster_portable.so
+    seclabel u:r:recovery:s0
+    
+#on property:hwservicemanager.ready=true
+#    start teei_daemon
+#    start soter-1-0
+#    start beanpod_check_keybox_service
+#    start keymaster-4-0
+#    start gatekeeper-1-0
+#    start keystore2
+
+on property:hwservicemanager.ready=true
+    start teei_daemon
+
+on property:init.svc.teei_daemon=running
+    start soter-1-0
+
+on property:init.svc.soter-1-0=running
+    start beanpod_check_keybox_service
+
+on property:ro.fixup.ready=true 
+    start gatekeeper-1-0
+    
 on property:ro.crypto.state=unsupported
-    stop gatekeeper-1-0
-    stop keymaster-4-1
     stop teei_daemon
-    stop keymaster_attestation-1-1
-    stop keystore2
     stop soter-1-0
+    stop keymaster-4-0
+    stop gatekeeper-1-0
+    stop keystore2
 
 on property:ro.crypto.state=unencrypted
-    stop gatekeeper-1-0
-    stop keymaster-4-1
     stop teei_daemon
-    stop keymaster_attestation-1-1
-    stop keystore2
     stop soter-1-0
-    
+    stop keymaster-4-0
+    stop gatekeeper-1-0
+    stop keystore2
+
 on property:twrp.decrypt.done=true
-    stop gatekeeper-1-0
-    stop keymaster-4-1
     stop teei_daemon
-    stop keymaster_attestation-1-1
-    stop keystore2
     stop soter-1-0
+    stop keymaster-4-0
+    stop gatekeeper-1-0
+    stop keystore2
+
+    
+on property:sys.usb.config=fastboot
+    start servicemanager
+    start hwservicemanager
+    restart fastbootd
