@@ -26,7 +26,12 @@ on boot
     class_start hal
 
 on property:init.svc.teei_daemon=running
+    start bp_kmsetkey
+    
+on property:init.svc.bp_kmsetkey=stopped
     start keymaster-4-1
+
+on property:init.svc.keymaster-4-1=running
     start gatekeeper-1-0
 
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
@@ -74,7 +79,7 @@ on property:ro.crypto.state=unsupported
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
-    # stop keymaster_attestation-1-1
+    stop keymaster_attestation-1-1
     stop keystore2
     stop soter-1-0
 
@@ -82,7 +87,7 @@ on property:ro.crypto.state=unencrypted
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
-    # stop keymaster_attestation-1-1
+    stop keymaster_attestation-1-1
     stop keystore2
     stop soter-1-0
     
@@ -90,6 +95,6 @@ on property:twrp.decrypt.done=true
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
-    # stop keymaster_attestation-1-1
+    stop keymaster_attestation-1-1
     stop keystore2
     stop soter-1-0
