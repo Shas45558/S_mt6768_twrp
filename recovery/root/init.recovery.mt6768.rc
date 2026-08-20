@@ -25,23 +25,9 @@ on boot
     class_start early_hal
     class_start hal
 
-service fixup /vendor/bin/fix-decrypt-service.sh
-    user root
-    group root
-    oneshot
-    disabled
-    seclabel u:r:recovery:s0
-    
-service vold /system/bin/vold \
-        --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 \
-        --fsck_context=u:r:fsck:s0 --fsck_untrusted_context=u:r:fsck_untrusted:s0
-    class core
-    ioprio be 2
-    writepid /dev/cpuset/foreground/tasks
-    shutdown critical
-    group root reserved_disk
-    disabled
-    seclabel u:r:recovery:s0
+on property:init.svc.teei_daemon=running
+    start keymaster-4-1
+    start gatekeeper-1-0
 
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
     interface android.hardware.keymaster@4.0::IKeymasterDevice default
