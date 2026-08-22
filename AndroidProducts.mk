@@ -10,9 +10,7 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/twrp_merlinx.mk
 
 COMMON_LUNCH_CHOICES := \
-    twrp_lancelot-user \
-    twrp_lancelot-userdebug \
-    twrp_lancelot-eng \
-    twrp_merlinx-user \
-    twrp_merlinx-userdebug \
-    twrp_merlinx-eng
+    twrp_merlinx-ap2a-userdebug \
+    twrp_merlinx-ap2a-eng \
+    twrp_lancelot-ap2a-userdebug \
+	twrp_lancelot-ap2a-eng
