@@ -24,22 +24,10 @@ on fs
 #
 
 on property:init.svc.teei_daemon=running
-    start soter-1-0
-
-on property:init.svc.soter-1-0=running
-    start bp_kmsetkey
-    
-on property:init.svc.bp_kmsetkey=stopped
     start keymaster-4-1
-
-on property:init.svc.keymaster-4-1=running
     start gatekeeper-1-0
 
-on property:init.svc.gatekeeper-1-0=running
-    start keymaster_attestation-1-1
-
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
-    interface android.hardware.keymaster@4.0::IKeymasterDevice default
     interface android.hardware.keymaster@4.1::IKeymasterDevice default
     class early_hal
     user root
