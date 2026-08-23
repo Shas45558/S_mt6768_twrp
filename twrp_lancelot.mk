@@ -28,3 +28,8 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 
 BUILD_FINGERPRINT := Redmi/lancelot_global/lancelot:12/SP1A.210812.016/V13.0.4.0.SJCMIXM:user/release-keys
 
+BUILD_BROKEN_PLUGIN_VALIDATION := \
+    soong-libaosprecovery_defaults \
+    soong-libguitwrp_defaults \
+    soong-libminuitwrp_defaults \
+    soong-vold_defaults
