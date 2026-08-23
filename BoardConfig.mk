@@ -155,7 +155,13 @@ TW_INCLUDE_FB2PNG := true
 TW_INCLUDE_RESETPROP := true
 TW_LOAD_VENDOR_MODULES := true
 TW_FRAMERATE := 60
-TW_DEVICE_VERSION := lancelot/merlinx
+ifeq ($(TARGET_PRODUCT),twrp_lancelot)
+TW_DEVICE_VERSION := lancelot
+endif
+ifeq ($(TARGET_PRODUCT),twrp_merlinx)
+TW_DEVICE_VERSION := merlinx
+endif
+
 
 #MIUI 12.xx A11 DECRYPTION
 BOARD_AVB_RECOVERY_ADD_HASH_FOOTER_ARGS += \
