@@ -156,10 +156,10 @@ TW_INCLUDE_RESETPROP := true
 TW_LOAD_VENDOR_MODULES := true
 TW_FRAMERATE := 60
 ifeq ($(TARGET_PRODUCT),twrp_lancelot)
-TW_DEVICE_VERSION := lancelot
+TW_DEVICE_VERSION := lancelot,By @shas45558
 endif
 ifeq ($(TARGET_PRODUCT),twrp_merlinx)
-TW_DEVICE_VERSION := merlinx
+TW_DEVICE_VERSION := merlinx,By @shas45558
 endif
 
 
