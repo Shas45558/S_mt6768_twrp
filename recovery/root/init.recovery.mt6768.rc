@@ -13,11 +13,15 @@ on init
 
 on early-fs
     start adbd
+    
 on fs
     install_keyring
     start servicemanager
     start hwservicemanager
     start vndservicemanager
+    
+on late-init
+    start keystore2
 
 #
 # Recovery startup sequence
@@ -27,6 +31,15 @@ on property:init.svc.teei_daemon=running
     start keymaster-4-1
     start gatekeeper-1-0
 
+
+service keystore2 /vendor/bin/keystore2 /tmp/misc/keystore
+    class early_hal
+    user root
+    group keystore readproc log
+    writepid /dev/cpuset/foreground/tasks
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
+    seclabel u:r:recovery:s0
+    
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
     interface android.hardware.keymaster@4.1::IKeymasterDevice default
     class early_hal
@@ -45,52 +58,20 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
     seclabel u:r:recovery:s0
 
-service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
-    user root
-    group root
-    disabled
-    oneshot
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
-    seclabel u:r:recovery:s0
-    
-service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymaster_attestation@1.1-service
-    interface vendor.mediatek.hardware.keymaster_attestation@1.0::IKeymasterDevice default
-    interface vendor.mediatek.hardware.keymaster_attestation@1.1::IKeymasterDevice default
-    class hal
-    user root
-    group root
-    disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
-    seclabel u:r:recovery:s0
-    
-service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
-    class hal
-    user root
-    group root
-    disabled
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
-    seclabel u:r:recovery:s0
-
 on property:ro.crypto.state=unsupported
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
-    stop keymaster_attestation-1-1
     stop keystore2
-    stop soter-1-0
 
 on property:ro.crypto.state=unencrypted
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
-    stop keymaster_attestation-1-1
     stop keystore2
-    stop soter-1-0
     
 on property:twrp.decrypt.done=true
     stop gatekeeper-1-0
     stop keymaster-4-1
     stop teei_daemon
-    stop keymaster_attestation-1-1
     stop keystore2
-    stop soter-1-0
