@@ -10,6 +10,9 @@ on init
     chmod 0777 /tmp/
     chown system system /dev/isee_tee0
     chown system system /dev/teei_client
+    mkdir -p /tmp/misc/keystore
+    chown keystore:keystore /tmp/misc/keystore
+    chmod 0700 /tmp/misc/keystore
 
 on early-fs
     start adbd
@@ -19,9 +22,6 @@ on fs
     start servicemanager
     start hwservicemanager
     start vndservicemanager
-    
-on late-init
-    start keystore2
 
 #
 # Recovery startup sequence
@@ -32,11 +32,14 @@ on property:init.svc.teei_daemon=running
     start gatekeeper-1-0
 
 
-service keystore2 /system/bin/keystore2 /tmp/misc/keystore
+service keystore /vendor/bin/keystore2 /tmp/misc/keystore
     class early_hal
-    user root
+    user keystore
     group keystore readproc log
-    writepid /dev/cpuset/foreground/tasks
+    task_profiles ProcessCapacityHigh
+    # The default memlock limit of 65536 bytes is too low for keystore.
+    rlimit memlock unlimited unlimited
+    disabled
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw
     seclabel u:r:recovery:s0
     
