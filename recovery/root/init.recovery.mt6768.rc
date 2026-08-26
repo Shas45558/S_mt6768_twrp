@@ -33,7 +33,7 @@ on property:init.svc.teei_daemon=running
     start gatekeeper-1-0
 
 
-service keystore2 /system/bin/keystore2 /tmp/misc/keystore
+service keystore2 /vendor/bin/keystore2 /tmp/misc/keystore
     class early_hal
     user root
     group keystore readproc log
