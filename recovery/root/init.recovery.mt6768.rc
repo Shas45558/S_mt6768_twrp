@@ -11,30 +11,31 @@ on init
     chown system system /dev/isee_tee0
     chown system system /dev/teei_client
     mkdir -p /tmp/misc/keystore
-    chown keystore:keystore /tmp/misc/keystore
+    chown keystore keystore /tmp/misc/keystore
     chmod 0700 /tmp/misc/keystore
 
 on early-fs
     start adbd
+on late-init
+    start keystore2
     
 on fs
     install_keyring
-    start servicemanager
-    start hwservicemanager
-    start vndservicemanager
-
 #
 # Recovery startup sequence
 #
 
 on property:init.svc.teei_daemon=running
+    start bp_kmsetkey
+    start soter-1-0
     start keymaster-4-1
+    start keymaster_attestation-1-1
     start gatekeeper-1-0
 
 
-service keystore /vendor/bin/keystore2 /tmp/misc/keystore
+service keystore2 /system/bin/keystore2 /tmp/misc/keystore
     class early_hal
-    user keystore
+    user root
     group keystore readproc log
     task_profiles ProcessCapacityHigh
     # The default memlock limit of 65536 bytes is too low for keystore.
@@ -44,6 +45,7 @@ service keystore /vendor/bin/keystore2 /tmp/misc/keystore
     seclabel u:r:recovery:s0
     
 service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.beanpod
+    interface android.hardware.keymaster@4.0::IKeymasterDevice default
     interface android.hardware.keymaster@4.1::IKeymasterDevice default
     class early_hal
     user root
@@ -59,6 +61,32 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     group root
     disabled
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
+    seclabel u:r:recovery:s0
+
+service bp_kmsetkey /vendor/bin/bp_kmsetkey_ca -C
+    class early_hal
+    user root
+    group root
+    disabled
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
+    seclabel u:r:recovery:s0
+    
+service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymaster_attestation@1.1-service
+    interface vendor.mediatek.hardware.keymaster_attestation@1.0::IKeymasterDevice default
+    interface vendor.mediatek.hardware.keymaster_attestation@1.1::IKeymasterDevice default
+    class hal
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
+    disabled
+    seclabel u:r:recovery:s0
+    
+service soter-1-0 /vendor/bin/hw/vendor.microtrust.hardware.soter@1.0-service
+    class hal
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64
+    disabled
     seclabel u:r:recovery:s0
 
 on property:ro.crypto.state=unsupported
