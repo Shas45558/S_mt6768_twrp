@@ -1,19 +1,5 @@
-# TEE
-ro.vendor.mtk_tee_gp_support=1
-ro.vendor.mtk_beanpod_tee_support=1
-# Gatekeeper
-ro.hardware.kmsetkey=beanpod
-ro.hardware.gatekeeper=beanpod
 ro.mediatek.platform=MT6768
 ro.vendor.mediatek.platform=MT6768
 ro.hardware=mt6768
 ro.boot.dynamic_partitions=true
-ro.mtk_tee_gp_support=1
-ro.mtk_microtrust_tee_support=1
-ro.crypto.volume.filenames_mode=aes-256-cts:v2
-ro.crypto.metadata.enabled=true
-ro.crypto.volume.metadata.method=dm-default-key
-ro.crypto.type=file
-fbe.metadata.wrappedkey=true
-vendor.gatekeeper.disable_spu=true
 ro.vendor.mediatek.platform=MT6768
