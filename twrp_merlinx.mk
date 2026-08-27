@@ -1,35 +1,42 @@
 #
-# Copyright (C) 2026 The Android Open Source Project
-# Copyright (C) 2026 SebaUbuntu's TWRP device tree generator
+# Copyright (C) 2020 The Android Open Source Project
+# Copyright (C) 2020 The TWRP Open Source Project
+# Copyright (C) 2020 SebaUbuntu's TWRP device tree generator
 #
-# SPDX-License-Identifier: Apache-2.0
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
+
+# Inherit from merlin device
+$(call inherit-product, device/xiaomi/merlinx/device.mk)
 
 # Inherit some common TWRP stuff.
 $(call inherit-product, vendor/twrp/config/common.mk)
 
-# Inherit from merlinx device
-$(call inherit-product, device/xiaomi/merlinx/device.mk)
-
+# Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := merlinx
 PRODUCT_NAME := twrp_merlinx
-PRODUCT_BRAND := Redmi
+PRODUCT_BRAND := xiaomi
 PRODUCT_MODEL := Redmi Note 9
 PRODUCT_MANUFACTURER := xiaomi
+PRODUCT_RELEASE_NAME := Redmi Note 9
 
-PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
-
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="merlin-user 12 SP1A.210812.016 V13.0.2.0.SJOMIXM release-keys"
-
-BUILD_FINGERPRINT := Redmi/merlin/merlin:12/SP1A.210812.016/V13.0.2.0.SJOMIXM:user/release-keys
-
-BUILD_BROKEN_PLUGIN_VALIDATION := \
-    soong-libaosprecovery_defaults \
-    soong-libguitwrp_defaults \
-    soong-libminuitwrp_defaults \
-    soong-vold_defaults
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.bootimage.build.date.utc=0 \
+    ro.build.date.utc=0

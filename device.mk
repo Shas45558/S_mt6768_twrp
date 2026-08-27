@@ -16,8 +16,3 @@ PRODUCT_PACKAGES += \
 PRODUCT_SHIPPING_API_LEVEL := 29
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
-
-# Health HAL
-PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl \
-    android.hardware.health@2.1-service

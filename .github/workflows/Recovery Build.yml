@@ -41,8 +41,8 @@ on:
         default: 'twrp_lancelot-eng'
         type: choice
         options:
-        - twrp_lancelot-ap2a-eng
-        - twrp_merlinx-ap2a-eng
+        - twrp_lancelot-eng
+        - twrp_merlinx-eng
       BUILD_TARGET:
         description: 'BUILD_TARGET'
         required: true
