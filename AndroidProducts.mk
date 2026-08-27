@@ -10,5 +10,5 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/twrp_merlinx.mk
 
 COMMON_LUNCH_CHOICES := \
-	twrp_merlinx-ap2a-eng \
-	twrp_lancelot-ap2a-eng
+	twrp_merlinx-eng \
+	twrp_lancelot-eng
